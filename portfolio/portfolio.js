@@ -1,9 +1,9 @@
 var teamMembers = [
-  { name: "Gauravi Roy", role: "UI/UX Designer & Frontend Developer", skills: ["HTML", "CSS", "Responsive Design", "DOM Manipulation"], github: "", linkedin: "" },
-  { name: "Ayush Mishra", role: "Lead Developer & Architect", skills: ["JavaScript", "SPA Routing", "LocalStorage", "Git Workflow"], github: "", linkedin: "" },
-  { name: "Saransh Yadav", role: "API Integration Developer", skills: ["Async/Await", "Fetch API", "JSON Parsing", "Error Handling"], github: "", linkedin: "" },
-  { name: "Vijay Kumar", role: "State & Storage Developer", skills: ["CRUD Operations", "localStorage", "Array Methods", "Data Binding"], github: "", linkedin: "" },
-  { name: "Shoaib Khan", role: "Testing & Deployment Lead", skills: ["Cross-browser Testing", "Bug Fixing", "Deployment", "Version Control"], github: "", linkedin: "" }
+  { name: "Gauravi Roy", role: "UI/UX Designer & Frontend Developer", skills: ["HTML", "CSS", "Responsive Design", "DOM Manipulation"], github: "https://github.com/gauravir39", linkedin: "https://www.linkedin.com/in/gauravi-roy-680104381/" },
+  { name: "Ayush Mishra", role: "Lead Developer & Architect", skills: ["JavaScript", "SPA Routing", "LocalStorage", "Git Workflow"], github: "https://github.com/CodeNova-Ayush", linkedin: "https://www.linkedin.com/in/ayush-mishra-5b8874381/" },
+  { name: "Saransh Yadav", role: "API Integration Developer", skills: ["Async/Await", "Fetch API", "JSON Parsing", "Error Handling"], github: "https://github.com/Inexpert-trifler", linkedin: "https://www.linkedin.com/in/saransh-yadav-b72643336/" },
+  { name: "Vijay Kumar", role: "State & Storage Developer", skills: ["CRUD Operations", "localStorage", "Array Methods", "Data Binding"], github: "https://github.com/vijaycoder01", linkedin: "https://www.linkedin.com/in/vijay-769105381/" },
+  { name: "Shoaib Khan", role: "Testing & Deployment Lead", skills: ["Cross-browser Testing", "Bug Fixing", "Deployment", "Version Control"], github: "https://github.com/shoaibgmkhan", linkedin: "https://www.linkedin.com/in/shoaib-khan-80a105381/" }
 ];
 
 var avatarColors = ["purple", "blue", "green", "orange", "red"];
@@ -45,6 +45,26 @@ function showCards(grid) {
       skillsDiv.appendChild(tag);
     }
     card.appendChild(skillsDiv);
+
+    var linksDiv = document.createElement("div");
+    linksDiv.className = "portfolio-links";
+    if (member.github !== "") {
+      var ghLink = document.createElement("a");
+      ghLink.href = member.github;
+      ghLink.target = "_blank";
+      ghLink.className = "portfolio-github-link";
+      ghLink.innerText = "GitHub Profile";
+      linksDiv.appendChild(ghLink);
+    }
+    if (member.linkedin !== "") {
+      var liLink = document.createElement("a");
+      liLink.href = member.linkedin;
+      liLink.target = "_blank";
+      liLink.className = "portfolio-linkedin-link";
+      liLink.innerText = "LinkedIn Profile";
+      linksDiv.appendChild(liLink);
+    }
+    card.appendChild(linksDiv);
 
     grid.appendChild(card);
   }
