@@ -11,6 +11,7 @@ var avatarColors = ["purple", "blue", "green", "orange", "red"];
 export function init(container) {
   var grid = container.querySelector("#portfolio-grid");
   showCards(grid);
+  setupForm(container);
 }
 
 function showCards(grid) {
@@ -67,5 +68,59 @@ function showCards(grid) {
     card.appendChild(linksDiv);
 
     grid.appendChild(card);
+  }
+}
+
+function setupForm(container) {
+  var form = container.querySelector("#contact-form");
+  form.addEventListener("submit", function(e) {
+    e.preventDefault();
+    validateForm(container, form);
+  });
+}
+
+function validateForm(container, form) {
+  var nameInput = container.querySelector("#contact-name");
+  var emailInput = container.querySelector("#contact-email");
+  var bodyInput = container.querySelector("#contact-body");
+
+  nameInput.classList.remove("input-invalid");
+  emailInput.classList.remove("input-invalid");
+  bodyInput.classList.remove("input-invalid");
+  container.querySelector("#error-name").style.display = "none";
+  container.querySelector("#error-email").style.display = "none";
+  container.querySelector("#error-body").style.display = "none";
+  container.querySelector("#form-message-container").innerHTML = "";
+
+  var nameOk = true;
+  var emailOk = true;
+  var bodyOk = true;
+
+  if (nameInput.value.trim() === "") {
+    nameInput.classList.add("input-invalid");
+    container.querySelector("#error-name").style.display = "block";
+    nameOk = false;
+  }
+
+  var emailVal = emailInput.value.trim();
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (emailVal === "" || emailRegex.test(emailVal) === false) {
+    emailInput.classList.add("input-invalid");
+    container.querySelector("#error-email").style.display = "block";
+    emailOk = false;
+  }
+
+  if (bodyInput.value.trim().length < 10) {
+    bodyInput.classList.add("input-invalid");
+    container.querySelector("#error-body").style.display = "block";
+    bodyOk = false;
+  }
+
+  if (nameOk && emailOk && bodyOk) {
+    var alertDiv = document.createElement("div");
+    alertDiv.className = "form-success-alert";
+    alertDiv.innerText = "Message sent successfully!";
+    container.querySelector("#form-message-container").appendChild(alertDiv);
+    form.reset();
   }
 }
