@@ -118,3 +118,15 @@ body.light .portfolio-github-link { background-color: rgb(36, 41, 47); color: wh
 .contact-desc { font-size: 0.95rem; color: gray; margin-bottom: 24px; }
 body.light .contact-desc { color: dimgray; }
 .input-invalid { border-color: crimson !important; }
+.form-success-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background-color: green;
+  border: 1px solid darkgreen;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+}
