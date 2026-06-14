@@ -6,6 +6,8 @@ var teamMembers = [
   { name: "Shoaib Khan", role: "Testing & Deployment Lead", skills: ["Cross-browser Testing", "Bug Fixing", "Deployment", "Version Control"], github: "", linkedin: "" }
 ];
 
+var avatarColors = ["purple", "blue", "green", "orange", "red"];
+
 export function init(container) {
   var grid = container.querySelector("#portfolio-grid");
   showCards(grid);
@@ -17,6 +19,12 @@ function showCards(grid) {
     var member = teamMembers[i];
     var card = document.createElement("div");
     card.className = "portfolio-card";
+
+    var avatar = document.createElement("div");
+    avatar.className = "portfolio-avatar-placeholder " + avatarColors[i];
+    var parts = member.name.split(" ");
+    avatar.innerText = parts[0][0] + parts[1][0];
+    card.appendChild(avatar);
 
     var nameEl = document.createElement("h3");
     nameEl.className = "portfolio-name";
