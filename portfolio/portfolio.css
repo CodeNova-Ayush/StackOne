@@ -113,3 +113,8 @@ body.light .portfolio-github-link { background-color: rgb(36, 41, 47); color: wh
   border-color: rgb(10, 102, 194);
 }
 .portfolio-linkedin-link:hover { background-color: steelblue; border-color: steelblue; }
+.contact-section { margin-top: 24px; }
+.contact-title { font-size: 1.5rem; margin-bottom: 8px; }
+.contact-desc { font-size: 0.95rem; color: gray; margin-bottom: 24px; }
+body.light .contact-desc { color: dimgray; }
+.input-invalid { border-color: crimson !important; }
