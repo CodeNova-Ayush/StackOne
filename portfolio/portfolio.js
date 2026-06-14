@@ -13,4 +13,21 @@ export function init(container) {
 
 function showCards(grid) {
   grid.innerHTML = "";
+  for (var i = 0; i < teamMembers.length; i++) {
+    var member = teamMembers[i];
+    var card = document.createElement("div");
+    card.className = "portfolio-card";
+
+    var nameEl = document.createElement("h3");
+    nameEl.className = "portfolio-name";
+    nameEl.innerText = member.name;
+    card.appendChild(nameEl);
+
+    var roleEl = document.createElement("p");
+    roleEl.className = "portfolio-role";
+    roleEl.innerText = member.role;
+    card.appendChild(roleEl);
+
+    grid.appendChild(card);
+  }
 }
