@@ -36,6 +36,16 @@ function showCards(grid) {
     roleEl.innerText = member.role;
     card.appendChild(roleEl);
 
+    var skillsDiv = document.createElement("div");
+    skillsDiv.className = "portfolio-skills";
+    for (var j = 0; j < member.skills.length; j++) {
+      var tag = document.createElement("span");
+      tag.className = "skill-tag";
+      tag.innerText = member.skills[j];
+      skillsDiv.appendChild(tag);
+    }
+    card.appendChild(skillsDiv);
+
     grid.appendChild(card);
   }
 }
