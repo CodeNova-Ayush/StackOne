@@ -109,10 +109,19 @@ function setupForm(container) {
 }
 
 function validateForm(container, form) {
+  clearErrors(container);
+  var nameOk = checkNameInput(container);
+  var emailOk = checkEmailInput(container);
+  var bodyOk = checkBodyInput(container);
+  if (nameOk && emailOk && bodyOk) {
+    showSuccessMessage(container, form);
+  }
+}
+
+function clearErrors(container) {
   var nameInput = container.querySelector("#contact-name");
   var emailInput = container.querySelector("#contact-email");
   var bodyInput = container.querySelector("#contact-body");
-
   nameInput.classList.remove("input-invalid");
   emailInput.classList.remove("input-invalid");
   bodyInput.classList.remove("input-invalid");
@@ -120,18 +129,6 @@ function validateForm(container, form) {
   container.querySelector("#error-email").style.display = "none";
   container.querySelector("#error-body").style.display = "none";
   container.querySelector("#form-message-container").innerHTML = "";
-
-  var nameOk = checkNameInput(container);
-  var emailOk = checkEmailInput(container);
-  var bodyOk = checkBodyInput(container);
-
-  if (nameOk && emailOk && bodyOk) {
-    var alertDiv = document.createElement("div");
-    alertDiv.className = "form-success-alert";
-    alertDiv.innerText = "Message sent successfully!";
-    container.querySelector("#form-message-container").appendChild(alertDiv);
-    form.reset();
-  }
 }
 
 function checkNameInput(container) {
@@ -164,4 +161,12 @@ function checkBodyInput(container) {
     return false;
   }
   return true;
+}
+
+function showSuccessMessage(container, form) {
+  var alertDiv = document.createElement("div");
+  alertDiv.className = "form-success-alert";
+  alertDiv.innerText = "Message sent successfully!";
+  container.querySelector("#form-message-container").appendChild(alertDiv);
+  form.reset();
 }
