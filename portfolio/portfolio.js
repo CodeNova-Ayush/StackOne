@@ -121,29 +121,9 @@ function validateForm(container, form) {
   container.querySelector("#error-body").style.display = "none";
   container.querySelector("#form-message-container").innerHTML = "";
 
-  var nameOk = true;
-  var emailOk = true;
-  var bodyOk = true;
-
-  if (nameInput.value.trim() === "") {
-    nameInput.classList.add("input-invalid");
-    container.querySelector("#error-name").style.display = "block";
-    nameOk = false;
-  }
-
-  var emailVal = emailInput.value.trim();
-  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (emailVal === "" || emailRegex.test(emailVal) === false) {
-    emailInput.classList.add("input-invalid");
-    container.querySelector("#error-email").style.display = "block";
-    emailOk = false;
-  }
-
-  if (bodyInput.value.trim().length < 10) {
-    bodyInput.classList.add("input-invalid");
-    container.querySelector("#error-body").style.display = "block";
-    bodyOk = false;
-  }
+  var nameOk = checkNameInput(container);
+  var emailOk = checkEmailInput(container);
+  var bodyOk = checkBodyInput(container);
 
   if (nameOk && emailOk && bodyOk) {
     var alertDiv = document.createElement("div");
@@ -152,4 +132,36 @@ function validateForm(container, form) {
     container.querySelector("#form-message-container").appendChild(alertDiv);
     form.reset();
   }
+}
+
+function checkNameInput(container) {
+  var nameInput = container.querySelector("#contact-name");
+  if (nameInput.value.trim() === "") {
+    nameInput.classList.add("input-invalid");
+    container.querySelector("#error-name").style.display = "block";
+    return false;
+  }
+  return true;
+}
+
+function checkEmailInput(container) {
+  var emailInput = container.querySelector("#contact-email");
+  var emailVal = emailInput.value.trim();
+  var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (emailVal === "" || emailRegex.test(emailVal) === false) {
+    emailInput.classList.add("input-invalid");
+    container.querySelector("#error-email").style.display = "block";
+    return false;
+  }
+  return true;
+}
+
+function checkBodyInput(container) {
+  var bodyInput = container.querySelector("#contact-body");
+  if (bodyInput.value.trim().length < 10) {
+    bodyInput.classList.add("input-invalid");
+    container.querySelector("#error-body").style.display = "block";
+    return false;
+  }
+  return true;
 }
