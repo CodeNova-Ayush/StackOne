@@ -18,57 +18,86 @@ function showCards(grid) {
   grid.innerHTML = "";
   for (var i = 0; i < teamMembers.length; i++) {
     var member = teamMembers[i];
-    var card = document.createElement("div");
-    card.className = "portfolio-card";
-
-    var avatar = document.createElement("div");
-    avatar.className = "portfolio-avatar-placeholder " + avatarColors[i];
-    var parts = member.name.split(" ");
-    avatar.innerText = parts[0][0] + parts[1][0];
-    card.appendChild(avatar);
-
-    var nameEl = document.createElement("h3");
-    nameEl.className = "portfolio-name";
-    nameEl.innerText = member.name;
-    card.appendChild(nameEl);
-
-    var roleEl = document.createElement("p");
-    roleEl.className = "portfolio-role";
-    roleEl.innerText = member.role;
-    card.appendChild(roleEl);
-
-    var skillsDiv = document.createElement("div");
-    skillsDiv.className = "portfolio-skills";
-    for (var j = 0; j < member.skills.length; j++) {
-      var tag = document.createElement("span");
-      tag.className = "skill-tag";
-      tag.innerText = member.skills[j];
-      skillsDiv.appendChild(tag);
-    }
-    card.appendChild(skillsDiv);
-
-    var linksDiv = document.createElement("div");
-    linksDiv.className = "portfolio-links";
-    if (member.github !== "") {
-      var ghLink = document.createElement("a");
-      ghLink.href = member.github;
-      ghLink.target = "_blank";
-      ghLink.className = "portfolio-github-link";
-      ghLink.innerText = "GitHub Profile";
-      linksDiv.appendChild(ghLink);
-    }
-    if (member.linkedin !== "") {
-      var liLink = document.createElement("a");
-      liLink.href = member.linkedin;
-      liLink.target = "_blank";
-      liLink.className = "portfolio-linkedin-link";
-      liLink.innerText = "LinkedIn Profile";
-      linksDiv.appendChild(liLink);
-    }
-    card.appendChild(linksDiv);
-
+    var card = createCard(member, i);
     grid.appendChild(card);
   }
+}
+
+function createCard(member, index) {
+  var card = document.createElement("div");
+  card.className = "portfolio-card";
+  appendCardHeader(card, member, index);
+  var skillsDiv = createSkills(member.skills);
+  card.appendChild(skillsDiv);
+  var linksDiv = createLinks(member.github, member.linkedin);
+  card.appendChild(linksDiv);
+  return card;
+}
+
+function appendCardHeader(card, member, index) {
+  var avatar = createAvatar(member.name, index);
+  card.appendChild(avatar);
+  var nameEl = createName(member.name);
+  card.appendChild(nameEl);
+  var roleEl = createRole(member.role);
+  card.appendChild(roleEl);
+}
+
+function createAvatar(name, index) {
+  var avatar = document.createElement("div");
+  avatar.className = "portfolio-avatar-placeholder " + avatarColors[index];
+  var parts = name.split(" ");
+  avatar.innerText = parts[0][0] + parts[1][0];
+  return avatar;
+}
+
+function createName(name) {
+  var nameEl = document.createElement("h3");
+  nameEl.className = "portfolio-name";
+  nameEl.innerText = name;
+  return nameEl;
+}
+
+function createRole(role) {
+  var roleEl = document.createElement("p");
+  roleEl.className = "portfolio-role";
+  roleEl.innerText = role;
+  return roleEl;
+}
+
+function createSkills(skills) {
+  var skillsDiv = document.createElement("div");
+  skillsDiv.className = "portfolio-skills";
+  for (var j = 0; j < skills.length; j++) {
+    var tag = document.createElement("span");
+    tag.className = "skill-tag";
+    tag.innerText = skills[j];
+    skillsDiv.appendChild(tag);
+  }
+  return skillsDiv;
+}
+
+function createLinks(github, linkedin) {
+  var linksDiv = document.createElement("div");
+  linksDiv.className = "portfolio-links";
+  if (github !== "") {
+    var ghLink = createLink(github, "portfolio-github-link", "GitHub Profile");
+    linksDiv.appendChild(ghLink);
+  }
+  if (linkedin !== "") {
+    var liLink = createLink(linkedin, "portfolio-linkedin-link", "LinkedIn Profile");
+    linksDiv.appendChild(liLink);
+  }
+  return linksDiv;
+}
+
+function createLink(url, className, text) {
+  var link = document.createElement("a");
+  link.href = url;
+  link.target = "_blank";
+  link.className = className;
+  link.innerText = text;
+  return link;
 }
 
 function setupForm(container) {
