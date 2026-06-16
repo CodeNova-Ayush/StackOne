@@ -879,6 +879,65 @@
       if (!valB) valB = 0;
       return valB - valA;
     }
+
+    // ===== Theme Toggle ===== //
+    (function() {
+      var toggle = document.getElementById("theme-toggle");
+      toggle.addEventListener("click", function() {
+        var isDark = document.body.classList.contains("dark");
+        if (isDark) {
+          document.body.classList.remove("dark");
+          document.body.classList.add("light");
+          toggle.textContent = "☀️";
+        } else {
+          document.body.classList.remove("light");
+          document.body.classList.add("dark");
+          toggle.textContent = "🌙";
+        }
+      });
+    })();
+
+    // ===== Init ===== //
+    function init(container) {
+      var btn = container.querySelector("#git-search-btn");
+      var input = container.querySelector("#git-search-input");
+      var action = function() {
+        var val = input.value.trim();
+        if (val !== "") {
+          activeUser = val;
+          searchUser(container, val);
+        }
+      };
+      btn.addEventListener("click", action);
+      input.addEventListener("keydown", function(e) {
+        if (e.key === "Enter") action();
+      });
+      searchUser(container, activeUser);
+    }
+
+    function setupSort(container) {
+      var starBtn = container.querySelector("#btn-sort-stars");
+      var forkBtn = container.querySelector("#btn-sort-forks");
+      if (starBtn !== null && forkBtn !== null) {
+        bindSort(container, starBtn, forkBtn, "stars");
+        bindSort(container, forkBtn, starBtn, "forks");
+      }
+    }
+
+    function bindSort(container, btn, otherBtn, key) {
+      btn.addEventListener("click", function() {
+        sortKey = key;
+        btn.classList.add("active");
+        otherBtn.classList.remove("active");
+        showRepos(container);
+      });
+    }
+
+    // ===== Auto-initialize on page load ===== //
+    document.addEventListener("DOMContentLoaded", function() {
+      var container = document.getElementById("github-section");
+      init(container);
+    });
   </script>
 </body>
 </html>
