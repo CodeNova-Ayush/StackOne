@@ -341,6 +341,46 @@
                 explanation: "Both the 'in' operator and the 'hasOwnProperty()' method check for properties inside an object."
             }
         ];
+
+        // Quiz State Variables
+        var index = 0;
+        var score = 0;
+        var answered = false;
+        var selected = null;
+        var answerLog = [];
+        var timer = null;
+        var container = document.getElementById("quiz-container");
+
+        // Initialize quiz on page load
+        window.addEventListener("DOMContentLoaded", function () {
+            renderQuiz();
+        });
+
+        // Reset all state to start fresh
+        function resetState() {
+            index = 0;
+            score = 0;
+            answered = false;
+            selected = null;
+            answerLog = [];
+        }
+
+        // Stop the countdown timer
+        function stopTimer() {
+            if (timer !== null) {
+                clearTimeout(timer);
+                timer = null;
+            }
+        }
+
+        // Decide whether to show question or results
+        function renderQuiz() {
+            if (index >= questions.length) {
+                showResult();
+            } else {
+                loadQuestion();
+            }
+        }
     </script>
 
 </body>
