@@ -464,6 +464,75 @@
             startTimer();
         }
 
+        // Handle option selection
+        function selectOption(optIndex) {
+            if (answered) return;
+            answered = true;
+            stopTimer();
+
+            var q = questions[index];
+            selected = optIndex;
+            var isCorrect = (optIndex === q.answer);
+            if (isCorrect) {
+                score++;
+            }
+
+            answerLog.push({
+                question: q.question,
+                options: q.options,
+                selected: optIndex,
+                correctIndex: q.answer,
+                explanation: q.explanation
+            });
+
+            // Update option buttons UI
+            var optionsList = document.getElementById("options-list");
+            if (optionsList) {
+                var buttons = optionsList.getElementsByTagName("button");
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].disabled = true;
+                    if (i === q.answer) {
+                        buttons[i].classList.add("correct");
+                        buttons[i].innerHTML += ' <span class="quiz-option-status-icon">✓</span>';
+                    } else if (i === optIndex) {
+                        buttons[i].classList.add("incorrect");
+                        buttons[i].innerHTML += ' <span class="quiz-option-status-icon">✗</span>';
+                    }
+                }
+            }
+
+            // Render feedback box (explanation and next button)
+            var feedbackBox = document.getElementById("quiz-feedback-box");
+            if (feedbackBox) {
+                var isLast = (index === questions.length - 1);
+                var btnText = isLast ? "Finish Quiz 🏁" : "Next Question →";
+                
+                var feedbackHtml = "";
+                feedbackHtml += '<div class="explanation-box">';
+                if (optIndex === -1) {
+                    feedbackHtml += '  <div class="explanation-status incorrect">⏰ Time Out!</div>';
+                } else if (isCorrect) {
+                    feedbackHtml += '  <div class="explanation-status correct">✓ Correct Answer</div>';
+                } else {
+                    feedbackHtml += '  <div class="explanation-status incorrect">✗ Incorrect Answer</div>';
+                }
+                feedbackHtml += '  <div class="explanation-text">' + escapeHTML(q.explanation) + '</div>';
+                feedbackHtml += '</div>';
+                
+                feedbackHtml += '<div class="quiz-actions">';
+                feedbackHtml += '  <button class="btn btn-primary" onclick="nextQuestion()">' + btnText + '</button>';
+                feedbackHtml += '</div>';
+                
+                feedbackBox.innerHTML = feedbackHtml;
+            }
+        }
+
+        // Advance to next question
+        function nextQuestion() {
+            index++;
+            renderQuiz();
+        }
+
         // Decide whether to show question or results
         function renderQuiz() {
             if (index >= questions.length) {
