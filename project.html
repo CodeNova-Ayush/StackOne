@@ -488,7 +488,126 @@
     .lang-dot.python { background-color: steelblue; }
     .lang-dot.cpp { background-color: crimson; }
     .lang-dot.go { background-color: steelblue; }
-    .lang-dot.other { background-color: gray; }
+
+    /* ===== Repository List ===== */
+    .github-repos-card {
+      border: 1px solid gray;
+      border-radius: 12px;
+      padding: 28px;
+      flex: 1;
+    }
+
+    body.dark .github-repos-card {
+      background-color: rgb(30, 30, 35);
+      border-color: rgb(60, 60, 65);
+    }
+
+    body.light .github-repos-card {
+      background-color: white;
+      border-color: lightgray;
+    }
+
+    .repos-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .repos-sort-controls {
+      display: flex;
+      gap: 8px;
+    }
+
+    .repos-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .repo-item {
+      padding: 18px;
+      border: 1px solid gray;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    body.dark .repo-item {
+      background-color: rgb(40, 40, 45);
+      border-color: rgb(60, 60, 65);
+    }
+
+    body.light .repo-item {
+      background-color: whitesmoke;
+      border-color: lightgray;
+    }
+
+    .repo-item:hover {
+      border-color: rgb(198, 90, 61);
+      transform: translateY(-2px);
+    }
+
+    .repo-item-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .repo-name {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: rgb(198, 90, 61);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .repo-name:hover {
+      color: rgb(224, 122, 92);
+    }
+
+    .repo-desc {
+      font-size: 0.85rem;
+      color: gray;
+      line-height: 1.5;
+    }
+
+    body.light .repo-desc {
+      color: dimgray;
+    }
+
+    .repo-footer {
+      display: flex;
+      gap: 20px;
+      font-size: 0.75rem;
+      color: gray;
+      font-weight: bold;
+    }
+
+    body.light .repo-footer {
+      color: dimgray;
+    }
+
+    .repo-footer-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* ===== Responsive Design ===== */
+    @media (max-width: 900px) {
+      .github-workspace {
+        flex-direction: column;
+      }
+      .github-profile-col {
+        width: 100%;
+        min-width: auto;
+      }
+    }
   </style>
 </head>
 <body class="dark">
