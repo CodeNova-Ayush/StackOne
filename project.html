@@ -373,6 +373,48 @@
             }
         }
 
+        // Start countdown timer (15 seconds)
+        function startTimer() {
+            var duration = 15;
+            var timeLeft = duration;
+            stopTimer();
+
+            var timerEl = document.getElementById("quiz-timer");
+            var progressEl = document.getElementById("quiz-progress-bar");
+            if (timerEl) {
+                timerEl.textContent = "⏱️ " + timeLeft + "s";
+                timerEl.classList.remove("danger");
+            }
+            if (progressEl) {
+                progressEl.style.width = "0%";
+            }
+
+            function tick() {
+                if (timeLeft <= 0) {
+                    autoSubmitAnswer();
+                    return;
+                }
+                timeLeft--;
+                if (timerEl) {
+                    timerEl.textContent = "⏱️ " + timeLeft + "s";
+                    if (timeLeft <= 5) {
+                        timerEl.classList.add("danger");
+                    }
+                }
+                if (progressEl) {
+                    var percent = ((duration - timeLeft) / duration) * 100;
+                    progressEl.style.width = percent + "%";
+                }
+                timer = setTimeout(tick, 1000);
+            }
+            timer = setTimeout(tick, 1000);
+        }
+
+        // Auto submit question on timer expiry
+        function autoSubmitAnswer() {
+            selectOption(-1);
+        }
+
         // Decide whether to show question or results
         function renderQuiz() {
             if (index >= questions.length) {
