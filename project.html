@@ -690,6 +690,55 @@
     var sortKey = "stars";
     var userData = null;
     var repoData = null;
+
+    function searchUser(container, username) {
+      clearStatus(container);
+      showSpinner(container, username);
+
+      fetch("https://api.github.com/users/" + username)
+        .then(function(pRes) {
+          if (!pRes.ok) throw new Error("Profile fetch failed");
+          return pRes.json().then(function(profileData) {
+            return fetch("https://api.github.com/users/" + username + "/repos?per_page=100")
+              .then(function(rRes) {
+                if (!rRes.ok) throw new Error("Repos fetch failed");
+                return rRes.json();
+              })
+              .then(function(reposData) {
+                userData = profileData;
+                repoData = reposData;
+                showProfile(container);
+              });
+          });
+        })
+        .catch(function(err) {
+          loadFallback(container, username);
+        });
+    }
+
+    function clearStatus(container) {
+      var banner = container.querySelector("#git-status-banner");
+      if (banner !== null) banner.innerHTML = "";
+    }
+
+    function showSpinner(container, username) {
+      var area = container.querySelector("#git-workspace-area");
+      if (area !== null) {
+        area.innerHTML = '<div class="spinner-wrapper"><div class="spinner"></div><p>Connecting for <strong>@' + username + '</strong>...</p></div>';
+      }
+    }
+
+    function loadFallback(container, username) {
+      var banner = container.querySelector("#git-status-banner");
+      if (banner !== null) {
+        banner.innerHTML = '<div class="news-banner" style="border-color:crimson;color:crimson;margin-bottom:20px;"><span>⚠️</span><span>Failed to load profile. Using mock data.</span></div>';
+      }
+      var backup = mockProfiles[username.toLowerCase()];
+      if (!backup) backup = mockProfiles["octocat"];
+      userData = backup.profile;
+      repoData = backup.repos;
+      showProfile(container);
+    }
   </script>
 </body>
 </html>
