@@ -833,6 +833,52 @@
       bar.innerHTML = '<div class="chart-bar-meta"><span style="display:flex;align-items:center;gap:6px;"><span class="lang-dot ' + lower + '"></span>' + lang.name + '</span><span>' + lang.percentage + '%</span></div><div class="chart-bar-track"><div class="chart-bar-fill" style="width:' + lang.percentage + '%;background-color:' + color + ';"></div></div>';
       return bar;
     }
+
+    function showRepos(container) {
+      var list = container.querySelector("#git-repos-items");
+      if (list === null) return;
+      var sorted = sortRepos(repoData);
+      if (sorted.length === 0) {
+        list.innerHTML = '<div class="empty-state"><div class="empty-state-icon">🐙</div><p>No repositories.</p></div>';
+        return;
+      }
+      list.innerHTML = "";
+      sorted.forEach(function(repo) {
+        list.appendChild(createRepoItem(repo));
+      });
+    }
+
+    function createRepoItem(repo) {
+      var item = document.createElement("div");
+      item.className = "repo-item";
+      var lang = "";
+      if (repo.language) {
+        lang = '<div class="repo-footer-item"><span class="lang-dot ' + repo.language.toLowerCase() + '"></span><span>' + repo.language + '</span></div>';
+      }
+      var desc = repo.description ? repo.description : "No description provided.";
+      item.innerHTML = '<div class="repo-item-top"><a class="repo-name" href="' + repo.html_url + '" target="_blank">' + repo.name + '</a></div><p class="repo-desc">' + desc + '</p><div class="repo-footer">' + lang + '<div class="repo-footer-item"><span>⭐</span><span>' + repo.stargazers_count + '</span></div><div class="repo-footer-item"><span>🍴</span><span>' + repo.forks_count + '</span></div></div>';
+      return item;
+    }
+
+    function sortRepos(repos) {
+      if (!repos) return [];
+      var copy = [];
+      repos.forEach(function(item) { copy.push(item); });
+      copy.sort(compareRepos);
+      var res = [];
+      for (var i = 0; i < copy.length && i < 10; i++) {
+        res.push(copy[i]);
+      }
+      return res;
+    }
+
+    function compareRepos(a, b) {
+      var valA = sortKey === "stars" ? a.stargazers_count : a.forks_count;
+      var valB = sortKey === "stars" ? b.stargazers_count : b.forks_count;
+      if (!valA) valA = 0;
+      if (!valB) valB = 0;
+      return valB - valA;
+    }
   </script>
 </body>
 </html>
