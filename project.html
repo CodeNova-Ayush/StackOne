@@ -415,6 +415,55 @@
             selectOption(-1);
         }
 
+        // Helper to escape HTML characters
+        function escapeHTML(str) {
+            return str.replace(/&/g, "&amp;")
+                      .replace(/</g, "&lt;")
+                      .replace(/>/g, "&gt;")
+                      .replace(/"/g, "&quot;")
+                      .replace(/'/g, "&#039;");
+        }
+
+        // Load and render the current question
+        function loadQuestion() {
+            answered = false;
+            selected = null;
+            var q = questions[index];
+
+            var html = "";
+            // Header with progress text and timer
+            html += '<div class="quiz-header">';
+            html += '  <div style="font-weight: 600; font-size: 1.1rem; color: #ccc;">Question ' + (index + 1) + ' of ' + questions.length + '</div>';
+            html += '  <div id="quiz-timer" class="quiz-timer">⏱️ 15s</div>';
+            html += '</div>';
+            
+            // Progress bar
+            html += '<div class="quiz-progress-bar-container" style="margin-bottom: 24px;">';
+            var initialProgress = (index / questions.length) * 100;
+            html += '  <div id="quiz-progress-bar" class="quiz-progress-bar" style="width: ' + initialProgress + '%;"></div>';
+            html += '</div>';
+
+            // Question Card
+            html += '<div class="quiz-question-card">';
+            html += '  <div class="question-text">' + escapeHTML(q.question) + '</div>';
+            html += '  <div class="quiz-options-list" id="options-list">';
+            for (var i = 0; i < q.options.length; i++) {
+                html += '    <button class="quiz-option" onclick="selectOption(' + i + ')">' + escapeHTML(q.options[i]) + '</button>';
+            }
+            html += '  </div>';
+            
+            // Placeholder for actions and explanation
+            html += '  <div id="quiz-feedback-box"></div>';
+            html += '</div>';
+
+            var workspace = document.getElementById("quiz-workspace");
+            if (workspace) {
+                workspace.innerHTML = html;
+            }
+            
+            startTimer();
+        }
+
         // Decide whether to show question or results
         function renderQuiz() {
             if (index >= questions.length) {
