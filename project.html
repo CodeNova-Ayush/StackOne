@@ -533,6 +533,79 @@
             renderQuiz();
         }
 
+        // Show final result summary
+        function showResult() {
+            stopTimer();
+
+            var percentage = Math.round((score / questions.length) * 100);
+            var summaryText = "";
+            if (percentage === 100) {
+                summaryText = "Perfect score! You are a JavaScript master!";
+            } else if (percentage >= 70) {
+                summaryText = "Great job! You have a solid understanding of core JS concepts.";
+            } else if (percentage >= 40) {
+                summaryText = "Good effort, but there is room for improvement. Review the explanations below!";
+            } else {
+                summaryText = "Keep practicing! Take the quiz again to master these JavaScript concepts.";
+            }
+
+            var html = "";
+            html += '<div class="quiz-summary-card">';
+            html += '  <h2>Quiz Completed!</h2>';
+            html += '  <div class="quiz-summary-score-badge">' + score + '/' + questions.length + '</div>';
+            html += '  <h3>Score: ' + percentage + '%</h3>';
+            html += '  <p class="quiz-summary-text">' + summaryText + '</p>';
+            html += '  <button class="btn btn-primary" onclick="restartQuiz()">Restart Quiz 🔄</button>';
+            html += '</div>';
+
+            // Show a detailed log of the user's answers
+            html += '<div style="margin-top: 36px;">';
+            html += '  <h3 style="margin-bottom: 20px; font-size: 1.3rem; color: #fff;">Review Answers:</h3>';
+            html += '  <div style="display: flex; flex-direction: column; gap: 20px;">';
+            for (var i = 0; i < answerLog.length; i++) {
+                var log = answerLog[i];
+                var isLogCorrect = (log.selected === log.correctIndex);
+                var statusClass = isLogCorrect ? "correct" : "incorrect";
+                var statusLabel = isLogCorrect ? "✓ Correct" : (log.selected === -1 ? "⏰ Time Out" : "✗ Incorrect");
+                
+                html += '<div style="border: 1px solid rgb(60, 60, 65); border-radius: 12px; padding: 24px; background-color: rgb(30, 30, 35);">';
+                html += '  <div style="font-weight: bold; margin-bottom: 12px; color: #fff;">Q' + (i + 1) + ': ' + escapeHTML(log.question) + '</div>';
+                
+                html += '  <div style="margin-bottom: 12px; font-size: 0.95rem;">';
+                if (log.selected === -1) {
+                    html += '    <div style="color: crimson; font-weight: bold;">Your Answer: (No Answer - Time Out)</div>';
+                } else {
+                    var userAns = log.options[log.selected];
+                    var userColor = isLogCorrect ? "#4caf50" : "crimson";
+                    html += '    <div>Your Answer: <span style="color: ' + userColor + '; font-weight: bold;">' + escapeHTML(userAns) + '</span></div>';
+                }
+                if (!isLogCorrect) {
+                    var correctAns = log.options[log.correctIndex];
+                    html += '    <div style="color: #4caf50; font-weight: bold; margin-top: 4px;">Correct Answer: ' + escapeHTML(correctAns) + '</div>';
+                }
+                html += '  </div>';
+
+                html += '  <div class="explanation-box" style="margin-top: 12px; padding-top: 12px;">';
+                html += '    <div class="explanation-status ' + statusClass + '">' + statusLabel + '</div>';
+                html += '    <div class="explanation-text">' + escapeHTML(log.explanation) + '</div>';
+                html += '  </div>';
+                html += '</div>';
+            }
+            html += '  </div>';
+            html += '</div>';
+
+            var workspace = document.getElementById("quiz-workspace");
+            if (workspace) {
+                workspace.innerHTML = html;
+            }
+        }
+
+        // Restart quiz
+        function restartQuiz() {
+            resetState();
+            renderQuiz();
+        }
+
         // Decide whether to show question or results
         function renderQuiz() {
             if (index >= questions.length) {
