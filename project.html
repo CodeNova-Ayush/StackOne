@@ -5,6 +5,52 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JS Quiz Engine</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Reset & Base Styles */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 48px 20px;
+            background-color: rgb(18, 18, 22);
+            color: #e0e0e0;
+        }
+
+        .quiz-container {
+            max-width: 700px;
+            width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .view-header {
+            text-align: center;
+            margin-bottom: 8px;
+        }
+
+        .view-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: rgb(198, 90, 61);
+            margin-bottom: 8px;
+        }
+
+        .view-desc {
+            font-size: 1rem;
+            color: #999;
+        }
+    </style>
 </head>
 <body>
 
