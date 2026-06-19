@@ -244,3 +244,111 @@ function createBar(lang) {
     '</div>';
   return bar;
 }
+
+// ===== Repository list ===== //
+function showRepos(container) {
+  var list = container.querySelector("#git-repos-items");
+  if (list === null) return;
+  var sorted = sortRepos(repoData);
+  if (sorted.length === 0) {
+    list.innerHTML =
+      '<div class="empty-state"><div class="empty-state-icon">🐙</div><p>No repositories.</p></div>';
+    return;
+  }
+  list.innerHTML = "";
+  sorted.forEach(function(repo) {
+    list.appendChild(createRepoItem(repo));
+  });
+}
+
+function createRepoItem(repo) {
+  var item = document.createElement("div");
+  item.className = "repo-item";
+  var lang = "";
+  if (repo.language) {
+    lang =
+      '<div class="repo-footer-item"><span class="lang-dot ' +
+      repo.language.toLowerCase() + '"></span><span>' + repo.language + '</span></div>';
+  }
+  var desc = repo.description ? repo.description : "No description provided.";
+  item.innerHTML =
+    '<div class="repo-item-top"><a class="repo-name" href="' + repo.html_url + '" target="_blank">' + repo.name + '</a></div>' +
+    '<p class="repo-desc">' + desc + '</p>' +
+    '<div class="repo-footer">' +
+      lang +
+      '<div class="repo-footer-item"><span>⭐</span><span>' + repo.stargazers_count + '</span></div>' +
+      '<div class="repo-footer-item"><span>🍴</span><span>' + repo.forks_count + '</span></div>' +
+    '</div>';
+  return item;
+}
+
+function sortRepos(repos) {
+  if (!repos) return [];
+  var copy = repos.slice();
+  copy.sort(compareRepos);
+  return copy.slice(0, 10);
+}
+
+function compareRepos(a, b) {
+  var valA = sortKey === "stars" ? a.stargazers_count : a.forks_count;
+  var valB = sortKey === "stars" ? b.stargazers_count : b.forks_count;
+  return (valB || 0) - (valA || 0);
+}
+
+// ===== Sort controls ===== //
+function setupSort(container) {
+  var starBtn = container.querySelector("#btn-sort-stars");
+  var forkBtn = container.querySelector("#btn-sort-forks");
+  if (starBtn !== null && forkBtn !== null) {
+    bindSort(container, starBtn, forkBtn, "stars");
+    bindSort(container, forkBtn, starBtn, "forks");
+  }
+}
+
+function bindSort(container, btn, otherBtn, key) {
+  btn.addEventListener("click", function() {
+    sortKey = key;
+    btn.classList.add("active");
+    otherBtn.classList.remove("active");
+    showRepos(container);
+  });
+}
+
+// ===== Theme Toggle ===== //
+(function() {
+  var toggle = document.getElementById("theme-toggle");
+  toggle.addEventListener("click", function() {
+    var isDark = document.body.classList.contains("dark");
+    if (isDark) {
+      document.body.classList.replace("dark", "light");
+      toggle.textContent = "☀️";
+    } else {
+      document.body.classList.replace("light", "dark");
+      toggle.textContent = "🌙";
+    }
+  });
+})();
+
+// ===== Init ===== //
+function init(container) {
+  var btn = container.querySelector("#git-search-btn");
+  var input = container.querySelector("#git-search-input");
+  var action = function() {
+    var val = input.value.trim();
+    if (val !== "") {
+      activeUser = val;
+      searchUser(container, val);
+    }
+  };
+  btn.addEventListener("click", action);
+  input.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") action();
+  });
+  searchUser(container, activeUser);
+}
+
+// ===== Auto-initialize on page load ===== //
+document.addEventListener("DOMContentLoaded", function() {
+  var container = document.getElementById("github-section");
+  init(container);
+});
