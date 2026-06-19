@@ -37,6 +37,17 @@ A ledger system that computes finances, classifies transactions, and monitors bu
 - **Categorical Filtering** — Tabs to filter the ledger logs by transaction categories ("All", "Income", "Expenses").
 - **Persistence & Zero State** - Integrates with browser LocalStorage to save your data permanently, starting from $0.00 on clean load.
 
+## GitHub Explorer
+
+An integration interface that communicates with the official GitHub REST API to perform lookup operations on developers' public profiles and codebases.
+
+### Features
+
+- **Live Profile Search** — Fetch profile avatars, names, usernames, follower counts, following counts, repositories, bios, and locations.
+- **Language Charts** — Computes repository languages and displays a visual bar graph detailing the percentage layout of code languages.
+- **Star & Fork Sorter** — List public repositories and sort them dynamically by their popularity (stars) or fork counts.
+- **Offline Fallback** — Programmed with local cached files to display mock search profiles (such as Google or Octocat) in case GitHub API limits are exceeded.
+
 ### Tech Stack
 
 - **HTML5** — Semantic markup for quiz structure
