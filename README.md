@@ -16,6 +16,16 @@ A timed, interactive JavaScript quiz built with vanilla HTML, CSS, and JS. Test 
 - **Score Summary** — At the end, a summary card shows your percentage score with a personalized verdict.
 - **Play Again** — Restart the quiz anytime to improve your score.
 
+## Team Portfolios
+
+A directory of engineering team profiles showcasing their roles, specific skill tags, and social profiles.
+
+### Features
+
+- **Dynamic Avatars** — Programmatically extracts letters from team member names to create initial-based profile avatars.
+- **Color Coding** — Alternating profile color themes for each member card.
+- **Contact Forms** — Built-in message board form with input validation (checks empty names, valid email formats, and minimum message length rules) to ensure messages are delivered successfully.
+
 ### Tech Stack
 
 - **HTML5** — Semantic markup for quiz structure
