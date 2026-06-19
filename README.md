@@ -48,6 +48,17 @@ An integration interface that communicates with the official GitHub REST API to 
 - **Star & Fork Sorter** — List public repositories and sort them dynamically by their popularity (stars) or fork counts.
 - **Offline Fallback** — Programmed with local cached files to display mock search profiles (such as Google or Octocat) in case GitHub API limits are exceeded.
 
+## Kanban Task Board
+
+A workflow management dashboard designed to organize tasks, adjust sprints, and track progress using category boards.
+
+### Features
+
+- **Drag-and-Drop Categories** — Move cards between "To Do", "In Progress", and "Done" columns smoothly. Highlight borders alert target drop zones during drags.
+- **Card Creator Modal** — Launch a dedicated modal window to create or edit cards, configure custom fields (Title, Description), and choose priority levels.
+- **Priority Indicators** — Color-coded left borders and tags (green for Low, orange for Medium, red for High) allow fast visually-scanned boards.
+- **Dynamic Task Counts** — Automatically updates the task number counters on each column header upon creation, edit, movement, or deletion.
+
 ### Tech Stack
 
 - **HTML5** — Semantic markup for quiz structure
