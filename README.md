@@ -1,6 +1,6 @@
-# StackOne
+# StackOne - Ultimate Developer Workspace
 
-StackOne brings your team's tools together — track tasks, explore code, read news, and more. All in one place.
+StackOne is a unified developer workspace and team dashboard that aggregates core engineering utilities into a single integrated tab. By combining project tracking, code analytics, expense ledgering, portfolios, and quizzes, it serves as a central hub for individual developer workflows.
 
 ## JS Quiz Engine
 
