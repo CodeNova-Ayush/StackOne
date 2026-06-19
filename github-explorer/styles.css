@@ -56,3 +56,36 @@ a {
 body.light .view-desc {
   color: dimgray;
 }
+
+/* ===== Theme Toggle ===== */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 24px;
+  z-index: 100;
+  background: none;
+  border: 1px solid rgba(128,128,128,0.4);
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s, border-color 0.2s, transform 0.2s;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+}
+
+body.dark .theme-toggle {
+  color: rgb(220, 220, 225);
+  border-color: rgb(60, 60, 65);
+}
+
+body.light .theme-toggle {
+  color: rgb(30, 30, 35);
+  border-color: lightgray;
+}
