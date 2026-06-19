@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GitHub Explorer - Query public developer metadata, review repositories, and analyze language usage statistics.">
+  <title>GitHub Explorer</title>
+</head>
+<body class="dark">
+
+  <!-- Theme Toggle -->
+  <button id="theme-toggle" title="Toggle theme">🌙</button>
+
+  <div class="page-wrapper">
+    <div class="github-container" id="github-section">
+      <div class="view-header">
+        <h1 class="view-title">GitHub Explorer</h1>
+        <p class="view-desc">Query public developer metadata, review repositories, and analyze language usage statistics.</p>
+      </div>
+
+      <div class="github-search-card card">
+        <input type="text" id="git-search-input" placeholder="Type a GitHub username (e.g. octocat, google)...">
+        <button id="git-search-btn">Search Profile</button>
+      </div>
+
+      <div id="git-status-banner"></div>
+      <div id="git-workspace-area"></div>
+    </div>
+  </div>
+
+</body>
+</html>
