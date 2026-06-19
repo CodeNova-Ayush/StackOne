@@ -190,3 +190,70 @@ function checkAnswer(selectedIndex) {
     nextBtn.style.display = "block";
     nextBtn.focus();
 }
+
+// Start a countdown timer for each question
+function startTimer(secondsLeft) {
+    var display = document.getElementById("quiz-timer-display");
+    if (!display) return;
+
+    display.innerText = "⏱️ " + secondsLeft + "s";
+
+    if (secondsLeft <= 5) {
+        display.classList.add("danger");
+    } else {
+        display.classList.remove("danger");
+    }
+
+    if (secondsLeft <= 0) {
+        checkAnswer(-1);
+        return;
+    }
+
+    timer = setTimeout(function () {
+        startTimer(secondsLeft - 1);
+    }, 1000);
+}
+
+// Stop the active timer
+function stopTimer() {
+    if (timer !== null) {
+        clearTimeout(timer);
+        timer = null;
+    }
+}
+
+// Display final quiz results with score and verdict
+function showResult() {
+    stopTimer();
+
+    var percentage = Math.round((score / questions.length) * 100);
+
+    var verdict = "Keep learning! JavaScript has some tricky quirks. Try again to improve your score.";
+    if (percentage >= 80) {
+        verdict = "Excellent job! You have a solid grasp of JavaScript.";
+    } else if (percentage >= 50) {
+        verdict = "Good effort! You know the basics, but review the explanations to master the language.";
+    }
+
+    var workspace = document.getElementById("quiz-workspace");
+    workspace.innerHTML =
+        '<div class="quiz-summary-card">' +
+            '<h2>Quiz Completed!</h2>' +
+            '<div class="quiz-summary-score-badge">' + percentage + '%</div>' +
+            '<h3>You scored ' + score + ' / ' + questions.length + '</h3>' +
+            '<p class="quiz-summary-text">' + verdict + '</p>' +
+            '<button id="quiz-retry-btn" class="btn btn-primary" style="margin-top:12px;padding:12px 32px">Play Again</button>' +
+        '</div>';
+
+    document.getElementById("quiz-retry-btn").addEventListener("click", function () {
+        index = 0;
+        score = 0;
+        answered = false;
+        selected = null;
+        answerLog = [];
+        showQuestion();
+    });
+}
+
+// Initialize quiz on page load
+showQuestion();
