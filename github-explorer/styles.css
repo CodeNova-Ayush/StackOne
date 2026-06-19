@@ -242,3 +242,208 @@ body.light .filter-tab {
 .empty-state-icon {
   font-size: 2.5rem;
 }
+
+/* ===== GitHub Section Layout ===== */
+.github-container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.github-search-card {
+  display: flex;
+  gap: 16px;
+}
+
+.github-search-card .form-input {
+  flex: 1;
+}
+
+.github-workspace {
+  display: flex;
+  gap: 28px;
+  align-items: flex-start;
+}
+
+.github-profile-col {
+  width: 300px;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+/* ===== Profile Card ===== */
+.github-profile-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 20px;
+  padding: 28px;
+  border: 1px solid gray;
+  border-radius: 12px;
+}
+
+body.dark .github-profile-card {
+  background-color: rgb(30, 30, 35);
+  border-color: rgb(60, 60, 65);
+}
+
+body.light .github-profile-card {
+  background-color: white;
+  border-color: lightgray;
+}
+
+.github-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid gray;
+  transition: transform 0.3s ease;
+}
+
+.github-avatar:hover {
+  transform: scale(1.05);
+}
+
+body.dark .github-avatar { border-color: rgb(80, 80, 80); }
+body.light .github-avatar { border-color: lightgray; }
+
+.github-profile-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+.github-profile-login {
+  font-size: 0.9rem;
+  color: rgb(198, 90, 61);
+  margin-top: -10px;
+  font-weight: bold;
+}
+
+.github-profile-bio {
+  font-size: 0.85rem;
+  color: gray;
+  line-height: 1.5;
+  margin: 10px 0;
+}
+
+body.light .github-profile-bio { color: dimgray; }
+
+.github-stats-row {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  padding: 14px 0;
+  margin: 10px 0;
+}
+
+body.dark .github-stats-row { border-color: rgb(60, 60, 65); }
+body.light .github-stats-row { border-color: lightgray; }
+
+.github-stat-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.github-stat-val {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.github-stat-lbl {
+  font-size: 0.75rem;
+  color: gray;
+}
+
+body.light .github-stat-lbl { color: dimgray; }
+
+.github-details-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  text-align: left;
+  font-size: 0.85rem;
+  color: gray;
+}
+
+body.light .github-details-list { color: dimgray; }
+
+.github-detail-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* ===== Language Chart ===== */
+.github-chart-card {
+  border: 1px solid gray;
+  border-radius: 12px;
+  padding: 24px;
+  width: 100%;
+}
+
+body.dark .github-chart-card {
+  background-color: rgb(30, 30, 35);
+  border-color: rgb(60, 60, 65);
+}
+
+body.light .github-chart-card {
+  background-color: white;
+  border-color: lightgray;
+}
+
+.chart-title {
+  font-size: 0.95rem;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.chart-bar-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.chart-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.chart-bar-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.chart-bar-track {
+  width: 100%;
+  height: 10px;
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid gray;
+}
+
+body.dark .chart-bar-track {
+  background-color: rgb(40, 40, 45);
+  border-color: rgb(60, 60, 65);
+}
+
+body.light .chart-bar-track {
+  background-color: whitesmoke;
+  border-color: lightgray;
+}
+
+.chart-bar-fill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 0.6s ease;
+}
