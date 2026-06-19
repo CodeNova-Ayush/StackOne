@@ -181,3 +181,66 @@ function setupLocation(container) {
     }
   }
 }
+
+// ===== Language chart ===== //
+function showChart(container) {
+  var chart = container.querySelector("#git-chart-bars");
+  if (chart === null) return;
+  var counts = getCounts(repoData ? repoData : []);
+  var total = getTotal(counts);
+  if (total === 0) {
+    chart.innerHTML =
+      '<p style="font-size:0.85rem;color:gray;text-align:center;padding:12px 0;">No language statistics available.</p>';
+    return;
+  }
+  renderBars(chart, counts, total);
+}
+
+function getCounts(repos) {
+  var counts = {};
+  repos.forEach(function(repo) {
+    if (repo.language) {
+      var lang = repo.language;
+      if (counts[lang] === undefined) counts[lang] = 0;
+      counts[lang] = counts[lang] + 1;
+    }
+  });
+  return counts;
+}
+
+function getTotal(counts) {
+  var total = 0;
+  for (var lang in counts) {
+    total = total + counts[lang];
+  }
+  return total;
+}
+
+function renderBars(chart, counts, total) {
+  var list = [];
+  for (var lang in counts) {
+    var pct = Math.round((counts[lang] / total) * 100);
+    list.push({ name: lang, count: counts[lang], percentage: pct });
+  }
+  list.sort(function(a, b) { return b.count - a.count; });
+  chart.innerHTML = "";
+  for (var i = 0; i < list.length && i < 5; i++) {
+    chart.appendChild(createBar(list[i]));
+  }
+}
+
+function createBar(lang) {
+  var lower = lang.name.toLowerCase();
+  var color = langColors[lower] ? langColors[lower] : "gray";
+  var bar = document.createElement("div");
+  bar.className = "chart-bar-item";
+  bar.innerHTML =
+    '<div class="chart-bar-meta">' +
+      '<span style="display:flex;align-items:center;gap:6px;"><span class="lang-dot ' + lower + '"></span>' + lang.name + '</span>' +
+      '<span>' + lang.percentage + '%</span>' +
+    '</div>' +
+    '<div class="chart-bar-track">' +
+      '<div class="chart-bar-fill" style="width:' + lang.percentage + '%;background-color:' + color + ';"></div>' +
+    '</div>';
+  return bar;
+}
