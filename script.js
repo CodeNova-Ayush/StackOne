@@ -70,3 +70,123 @@ var selected = null;
 var answerLog = [];
 var timer = null;
 var container = document.getElementById("quiz-container");
+
+// Render a single question card inside the workspace
+function showQuestion() {
+    if (index >= questions.length) {
+        showResult();
+        return;
+    }
+
+    var data = questions[index];
+    var progress = (index / questions.length) * 100;
+    var isLast = index === questions.length - 1;
+
+    var optionsHTML = "";
+    for (var i = 0; i < data.options.length; i++) {
+        optionsHTML += '<button class="quiz-option" data-index="' + i + '">';
+        optionsHTML += '<span>' + data.options[i] + '</span>';
+        optionsHTML += '<span class="quiz-option-status-icon"></span>';
+        optionsHTML += '</button>';
+    }
+
+    var workspace = document.getElementById("quiz-workspace");
+    workspace.innerHTML =
+        '<div class="quiz-header">' +
+            '<span>Question <strong>' + (index + 1) + '</strong> of ' + questions.length + '</span>' +
+            '<div id="quiz-timer-display" class="quiz-timer">⏱️ 30s</div>' +
+        '</div>' +
+        '<div class="quiz-progress-bar-container" style="margin-bottom:24px">' +
+            '<div class="quiz-progress-bar" style="width:' + progress + '%"></div>' +
+        '</div>' +
+        '<div class="quiz-question-card">' +
+            '<h3 class="question-text">' + data.question + '</h3>' +
+            '<div class="quiz-options-list" id="quiz-options">' + optionsHTML + '</div>' +
+        '</div>' +
+        '<div class="quiz-actions">' +
+            '<button id="quiz-next-btn" class="btn btn-primary" style="display:none">' +
+                (isLast ? "Finish Quiz" : "Next Question →") +
+            '</button>' +
+        '</div>';
+
+    answered = false;
+    selected = null;
+
+    var buttons = document.querySelectorAll(".quiz-option");
+    for (var j = 0; j < buttons.length; j++) {
+        buttons[j].addEventListener("click", handleOptionClick);
+    }
+
+    document.getElementById("quiz-next-btn").addEventListener("click", function () {
+        index++;
+        showQuestion();
+    });
+
+    startTimer(30);
+}
+
+// Handle when user clicks an answer option
+function handleOptionClick(event) {
+    if (answered) return;
+    var btn = event.currentTarget;
+    var selectedIndex = parseInt(btn.getAttribute("data-index"), 10);
+    checkAnswer(selectedIndex);
+}
+
+// Validate selected answer and show correct/incorrect feedback
+function checkAnswer(selectedIndex) {
+    stopTimer();
+    answered = true;
+    selected = selectedIndex;
+
+    var data = questions[index];
+    var isCorrect = selectedIndex === data.answer;
+
+    if (isCorrect) score++;
+
+    answerLog.push({
+        question: data.question,
+        selected: selectedIndex,
+        correct: data.answer,
+        isCorrect: isCorrect
+    });
+
+    var buttons = document.querySelectorAll(".quiz-option");
+    for (var i = 0; i < buttons.length; i++) {
+        buttons[i].disabled = true;
+        var idx = parseInt(buttons[i].getAttribute("data-index"), 10);
+        var icon = buttons[i].querySelector(".quiz-option-status-icon");
+        if (idx === data.answer) {
+            buttons[i].classList.add("correct");
+            icon.innerText = "✓";
+        } else if (idx === selectedIndex) {
+            buttons[i].classList.add("incorrect");
+            icon.innerText = "✗";
+        }
+    }
+
+    var statusLabel = isCorrect
+        ? "Correct Answer!"
+        : selectedIndex === -1
+            ? "Time's up! Incorrect"
+            : "Incorrect Answer";
+
+    var explanationBox = document.createElement("div");
+    explanationBox.className = "explanation-box";
+
+    var statusEl = document.createElement("p");
+    statusEl.className = isCorrect ? "explanation-status correct" : "explanation-status incorrect";
+    statusEl.innerText = statusLabel;
+
+    var bodyEl = document.createElement("p");
+    bodyEl.className = "explanation-text";
+    bodyEl.innerText = data.explanation;
+
+    explanationBox.appendChild(statusEl);
+    explanationBox.appendChild(bodyEl);
+    document.querySelector(".quiz-question-card").appendChild(explanationBox);
+
+    var nextBtn = document.getElementById("quiz-next-btn");
+    nextBtn.style.display = "block";
+    nextBtn.focus();
+}
