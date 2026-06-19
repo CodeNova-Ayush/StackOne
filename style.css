@@ -15,3 +15,29 @@ body {
     background-color: rgb(18, 18, 22);
     color: #e0e0e0;
 }
+
+.quiz-container {
+    max-width: 700px;
+    width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.view-header {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.view-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: rgb(198, 90, 61);
+    margin-bottom: 8px;
+}
+
+.view-desc {
+    font-size: 1rem;
+    color: #999;
+}
