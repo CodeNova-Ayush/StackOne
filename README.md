@@ -61,23 +61,39 @@ A workflow management dashboard designed to organize tasks, adjust sprints, and 
 
 ### Tech Stack
 
-- **HTML5** — Semantic markup for quiz structure
-- **CSS3** — Dark theme with custom styling, animations, and responsive layout
-- **JavaScript** — Vanilla JS for quiz logic, DOM manipulation, and timer management
+### Tech Stack
+
+- **HTML5** — Semantic, clean page layout structures
+- **CSS3** — Responsive layouts, customizable variables, glassmorphic popups, animations, and dark/light themes
+- **JavaScript** — Plain vanilla JS, dynamic API requests, LocalStorage syncing, and custom drag-and-drop systems
 
 ### File Structure
 
 ```
-├── index.html       # Main entry point linking external CSS and JS
-├── style.css        # All quiz styles (dark theme, cards, buttons, animations)
-├── script.js        # Quiz data, rendering, timer, and result logic
-├── project.html     # Standalone quiz page with inline styles
-├── quiz.js          # Modular quiz engine (ES module export)
-└── README.md        # Project documentation
+├── index.html              # Landing splash page for the dashboard
+├── dashboard.html          # SPA shell loading modular view templates
+├── css/
+│   └── global.css          # Main layout stylesheet and navigation elements
+├── expense/
+│   ├── expense.html        # Ledger ledger list html interface
+│   └── expense.js          # Simple, comment-free ledger calculator logic
+├── github-explorer/
+│   ├── index.html          # Profile search interface markup
+│   ├── script.js           # API search routines and language chart statistics
+│   └── styles.css          # Styles for layout grids and sorter control tabs
+├── portfolio/
+│   ├── index.html          # Team grid profile card layout
+│   └── script.js           # Programmatic names parsing and forms checking
+├── kanban/
+│   ├── index.html          # Flat Kanban board containers and modal overlays
+│   ├── style.css           # Board grid, drag highlight, and card indicator colors
+│   └── app.js              # Standalone vanilla JS task controller
+├── quiz.js                 # Timed JS trivia engine modules
+└── README.md               # Main repository documentation
 ```
 
 ### How to Run
 
-1. Clone the repository
-2. Open `index.html` in any modern browser
-3. Start answering questions before the timer runs out!
+1. Clone the repository.
+2. Serve the directory using any static web server (such as `python3 -m http.server` or `npx http-server`).
+3. Open `index.html` in your web browser and click **Get Started** to access the dashboard workspace hubs!
