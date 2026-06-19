@@ -26,6 +26,17 @@ A directory of engineering team profiles showcasing their roles, specific skill 
 - **Color Coding** — Alternating profile color themes for each member card.
 - **Contact Forms** — Built-in message board form with input validation (checks empty names, valid email formats, and minimum message length rules) to ensure messages are delivered successfully.
 
+## Expense Tracker
+
+A ledger system that computes finances, classifies transactions, and monitors business expenses in real-time.
+
+### Features
+
+- **Summary Cards** — Dynamically calculates your Net Balance, Total Income, and Total Expenses using vanilla looping structures.
+- **Ledger Logger** — Shows individual entries with custom indicators (green rising charts for incomes, red falling charts for expenses) along with descriptions, dates, and amounts.
+- **Categorical Filtering** — Tabs to filter the ledger logs by transaction categories ("All", "Income", "Expenses").
+- **Persistence & Zero State** - Integrates with browser LocalStorage to save your data permanently, starting from $0.00 on clean load.
+
 ### Tech Stack
 
 - **HTML5** — Semantic markup for quiz structure
