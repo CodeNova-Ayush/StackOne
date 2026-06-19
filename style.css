@@ -41,3 +41,54 @@ body {
     font-size: 1rem;
     color: #999;
 }
+
+/* Quiz Header & Progress Bar */
+.quiz-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.quiz-progress-bar-container {
+    width: 100%;
+    height: 10px;
+    border-radius: 100px;
+    overflow: hidden;
+    border: 1px solid rgb(60, 60, 65);
+    background-color: rgb(30, 30, 35);
+}
+
+.quiz-progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: rgb(198, 90, 61);
+    transition: width 0.4s ease;
+}
+
+/* Timer Styles */
+.quiz-timer {
+    font-family: monospace;
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: orange;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid rgb(60, 60, 65);
+    background-color: rgb(30, 30, 35);
+    white-space: nowrap;
+}
+
+.quiz-timer.danger {
+    color: crimson;
+    border-color: crimson;
+    animation: pulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes pulse {
+    from { opacity: 1; }
+    to { opacity: 0.5; }
+}
