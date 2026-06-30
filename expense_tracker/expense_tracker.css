@@ -8,3 +8,25 @@ body {
   min-height: 100vh;
   padding: 32px 24px;
 }
+
+/* ===== FORM STYLES ===== */
+.form-group { margin-bottom: 14px; }
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #aaa;
+  margin-bottom: 6px;
+}
+.form-input, .form-select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgb(60, 60, 65);
+  border-radius: 8px;
+  background-color: rgb(30, 30, 35);
+  color: #e0e0e0;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+}
