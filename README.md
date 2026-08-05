@@ -66,6 +66,7 @@ A workflow management dashboard designed to organize tasks, adjust sprints, and 
 - **HTML5** — Semantic, clean page layout structures
 - **CSS3** — Responsive layouts, customizable variables, glassmorphic popups, animations, and dark/light themes
 - **JavaScript** — Plain vanilla JS, dynamic API requests, LocalStorage syncing, and custom drag-and-drop systems
+- 
 
 
 ```
